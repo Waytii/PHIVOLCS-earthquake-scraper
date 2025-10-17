@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 try:
-    url = "https://www.phivolcs.dost.gov.ph/index.php/earthquake/latest-earthquakes"
+    url = "https://earthquake.phivolcs.dost.gov.ph/"
     response = requests.get(url, timeout=10)
     response.raise_for_status()
 
