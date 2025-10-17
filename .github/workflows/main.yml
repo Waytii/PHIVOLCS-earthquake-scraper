@@ -21,7 +21,7 @@ jobs:
         run: pip install requests beautifulsoup4 pandas
 
       - name: Run scraper
-        run: python scraper/scrape_phivolcs.py
+        run: python scrape_phivolcs.py
 
       - name: Commit updated CSV
         run: |
