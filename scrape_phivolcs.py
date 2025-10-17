@@ -1,19 +1,27 @@
-import requests
-from bs4 import BeautifulSoup
-import pandas as pd
+try:
+    import requests
+    from bs4 import BeautifulSoup
+    import pandas as pd
 
-url = "https://earthquake.phivolcs.dost.gov.ph/"
-response = requests.get(url)
-soup = BeautifulSoup(response.text, 'html.parser')
+    url = "https://www.phivolcs.dost.gov.ph/index.php/earthquake/latest-earthquakes"
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
 
-table = soup.find('table')
-rows = table.find_all('tr')[1:]
+    table = soup.find('table')
+    if not table:
+        raise ValueError("No table found on the page.")
 
-data = []
-for row in rows:
-    cols = row.find_all('td')
-    data.append([col.text.strip() for col in cols])
+    rows = table.find_all('tr')[1:]
+    data = []
+    for row in rows:
+        cols = row.find_all('td')
+        data.append([col.text.strip() for col in cols])
 
-columns = ['Date', 'Time', 'Latitude', 'Longitude', 'Depth', 'Magnitude', 'Location']
-df = pd.DataFrame(data, columns=columns)
-df.to_csv('phivolcs_earthquakes.csv', index=False)
+    columns = ['Date', 'Time', 'Latitude', 'Longitude', 'Depth', 'Magnitude', 'Location']
+    df = pd.DataFrame(data, columns=columns)
+    df.to_csv('phivolcs_earthquakes.csv', index=False)
+    print("Scraping successful.")
+
+except Exception as e:
+    print(f"Error occurred: {e}")
+    exit(1)
