@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
-url = "https://www.phivolcs.dost.gov.ph/index.php/earthquake/latest-earthquakes"
+url = "https://earthquake.phivolcs.dost.gov.ph/"
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
