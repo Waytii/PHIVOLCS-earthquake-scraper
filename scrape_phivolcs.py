@@ -1,15 +1,17 @@
+import requests
+from bs4 import BeautifulSoup
+import pandas as pd
+
 try:
-    import requests
-    from bs4 import BeautifulSoup
-    import pandas as pd
-
     url = "https://www.phivolcs.dost.gov.ph/index.php/earthquake/latest-earthquakes"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
 
+    soup = BeautifulSoup(response.text, 'html.parser')
     table = soup.find('table')
+
     if not table:
-        raise ValueError("No table found on the page.")
+        raise ValueError("No earthquake table found on the page.")
 
     rows = table.find_all('tr')[1:]
     data = []
