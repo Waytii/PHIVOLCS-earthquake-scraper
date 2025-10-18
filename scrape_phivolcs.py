@@ -1,6 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
+from datetime import datetime, timedelta
+import os
 import pandas as pd
+from datetime import timedelta
 
 try:
     url = "https://earthquake.phivolcs.dost.gov.ph/"
